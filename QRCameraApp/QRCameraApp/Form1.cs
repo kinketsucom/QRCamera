@@ -5,19 +5,58 @@ using System.Text;
 using OpenCvSharp;
 using ZXing;
 using System.Drawing;
+using System.ComponentModel;
+using System.IO;
 
 namespace QRCameraApp
 {
     public partial class Form1 : Form
     {
         private BarcodeReader barcodeReader = new BarcodeReader();
-        private Bitmap img = new Bitmap(@"C:\Users\sekib\Pictures\Saved Pictures\qr.bmp");
+        private Bitmap img = new Bitmap(@"C:\Users\sekib\Pictures\Saved Pictures\qr.jpg");
+
+        int WIDTH = 640;
+        int HEIGHT = 480;
+        Mat frame;
+        VideoCapture capture;
+        Bitmap bmp;
+        Graphics graphic;
+
+
         public Form1()
         {
             InitializeComponent();
-
             barcodeReader.AutoRotate = true;
             barcodeReader.TryInverted = true;
+
+
+            //カメラ画像取得用VideoCapture
+            capture = new VideoCapture(0);
+            if (!capture.IsOpened())
+            {
+                MessageBox.Show("cannot open camera");
+                this.Close();
+            }
+            capture.FrameWidth = WIDTH;
+            capture.FrameHeight = HEIGHT;
+            //取得先のMat作成
+            frame = new Mat(HEIGHT, WIDTH, MatType.CV_8UC3);
+
+           //表示用のBitmap作成
+            bmp = new Bitmap(frame.Cols, frame.Rows, (int)frame.Step(), System.Drawing.Imaging.PixelFormat.Format24bppRgb, frame.Data);
+ 
+
+            //PictureBoxを出力サイズに合わせる
+            pictureBox1.Width = frame.Cols;
+            pictureBox1.Height = frame.Rows;
+
+            //描画用のGraphics作成
+            graphic = pictureBox1.CreateGraphics();
+
+            //画像取得スレッド開始
+            backgroundWorker1.RunWorkerAsync();
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -25,7 +64,7 @@ namespace QRCameraApp
             this.Text = "QRCamerra";
         }
 
-        private string readQR(Bitmap bmp)
+        private string ReadQR(Bitmap bmp)
         {
             string ret = "(not found)";
 
@@ -44,37 +83,55 @@ namespace QRCameraApp
 
             return ret;
         }
-    
-
-    //private void Cam(object sender, EventArgs e)
-    //    {
-
-    //        Mat src = new Mat(@"C:\Users\sekib\Pictures\Saved Pictures\1.png", ImreadModes.GrayScale);   // OpenCvSharp 3.x
-    //        //Mat src = new Mat("lenna.png", LoadMode.GrayScale); // OpenCvSharp 2.4.x
-    //        Mat dst = new Mat();
-
-    //        Cv2.Canny(src, dst, 50, 200);
-            
-    //        //using (new Window("src image", src))
-    //        //using (new Window("dst image", dst))
-    //        {
-    //            Cv2.WaitKey();
-    //        }
-
-    //    }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Console.WriteLine("click");
-            string hoge = readQR(img);
-            Console.WriteLine(hoge);
-           // Cam(sender,e);
+            //string dir = readQR(img);
+            string dir = ReadQR(bmp);
+            Console.WriteLine(dir);
+            if (Directory.Exists(dir))
+            {
+                //フォルダを開く
+                System.Diagnostics.Process.Start(dir);
+            }
+            else
+            {
+                Directory.CreateDirectory(dir);
+                //フォルダを開く
+                System.Diagnostics.Process.Start(dir);
+            }
+
         }
 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //スレッドの終了を待機
+            backgroundWorker1.CancelAsync();
+            while (backgroundWorker1.IsBusy)
+                Application.DoEvents();
+        }
 
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            BackgroundWorker bw = (BackgroundWorker)sender;
 
+            while (!backgroundWorker1.CancellationPending)
+            {
+                //画像取得
+                //capture.Read(frame); //これだとエラー
+                capture.Grab();
+                NativeMethods.videoio_VideoCapture_operatorRightShift_Mat(capture.CvPtr, frame.CvPtr);
 
+                bw.ReportProgress(0);
+            }
 
+        }
 
+        private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            //描画
+            graphic.DrawImage(bmp, 0, 0, frame.Cols, frame.Rows);
+        }
     }
 }
