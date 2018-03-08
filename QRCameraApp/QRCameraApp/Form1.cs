@@ -13,10 +13,9 @@ namespace QRCameraApp
     public partial class Form1 : Form
     {
         private BarcodeReader barcodeReader = new BarcodeReader();
-        //private Bitmap img = new Bitmap(@"C:\Users\sekib\Pictures\Saved Pictures\qr.jpg");
 
-        int WIDTH = 320;
-        int HEIGHT = 300;
+        int WIDTH = 640;
+        int HEIGHT = 500;
         Mat frame;
         VideoCapture capture;
         Bitmap bmp;
@@ -28,6 +27,9 @@ namespace QRCameraApp
             barcodeReader.AutoRotate = true;
             barcodeReader.TryInverted = true;
 
+            this.Width = WIDTH;
+            this.Height = 600;
+
             //カメラ画像取得用VideoCapture
             capture = new VideoCapture(0);
             if (!capture.IsOpened())
@@ -35,16 +37,18 @@ namespace QRCameraApp
                 MessageBox.Show("cannot open camera");
                 this.Close();
             }
-            capture.FrameWidth = WIDTH;
-            capture.FrameHeight = HEIGHT;
+            capture.Set(3,Width);
+            capture.Set(4, (int)(this.Height*0.8));
+            //capture.FrameWidth = WIDTH;
+            //capture.FrameHeight = HEIGHT;
             //取得先のMat作成
-            frame = new Mat(HEIGHT, WIDTH, MatType.CV_8UC3);
-
+            frame = new Mat((int)(this.Height*0.8), Width, MatType.CV_8UC3);
+            Console.WriteLine(frame.Cols);
            //表示用のBitmap作成
             bmp = new Bitmap(frame.Cols, frame.Rows, (int)frame.Step(), System.Drawing.Imaging.PixelFormat.Format24bppRgb, frame.Data);
 
             //PictureBoxを出力サイズに合わせる
-            pictureBox1.Width = this.Width;// frame.Cols;
+            pictureBox1.Width = Width;//frame.Cols;
             pictureBox1.Height = (int)(this.Height*0.8); // frame.Rows;
             //描画用のGraphics作成
             graphic = pictureBox1.CreateGraphics();
@@ -57,7 +61,12 @@ namespace QRCameraApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // サイズ変更不可の直線ウィンドウに変更する
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.Text = "QRCamerra";
+
+            button1.Height = 80;
+            button1.Location = new System.Drawing.Point(100, 480);
         }
 
         private string ReadQR(Bitmap bmp)
@@ -77,14 +86,14 @@ namespace QRCameraApp
                 //ZXingのバグ？barcodeReader.Decodeに失敗することがある ver 0.14.0.0 で確認
             }
 
+
             return ret;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Console.WriteLine("click");
-            string dir = ReadQR(bmp);
-            Console.WriteLine(dir);         
+            string dir = ReadQR(bmp);         
 
             if (Directory.Exists(dir))
             {
