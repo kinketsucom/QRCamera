@@ -14,7 +14,7 @@ QRコードをかざして、読み取りボタンを押すことでQRコードを読み取ります。
 存在しない場合はディレクトリを作成して開きます。
 
 ## Demo
-![実行画面](https://)
+![実行画面](https://github.com/kinketsucom/QRCamera/blob/master/Img/1.png)
 
 ## Usage
 QRコードをかざしてボタンを押すだけです。
