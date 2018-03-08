@@ -16,7 +16,7 @@ namespace QRCameraApp
         //private Bitmap img = new Bitmap(@"C:\Users\sekib\Pictures\Saved Pictures\qr.jpg");
 
         int WIDTH = 320;
-        int HEIGHT = 180;
+        int HEIGHT = 300;
         Mat frame;
         VideoCapture capture;
         Bitmap bmp;
@@ -83,9 +83,9 @@ namespace QRCameraApp
         private void button1_Click(object sender, EventArgs e)
         {
             Console.WriteLine("click");
-            //string dir = readQR(img);
             string dir = ReadQR(bmp);
-            Console.WriteLine(dir);
+            Console.WriteLine(dir);         
+
             if (Directory.Exists(dir))
             {
                 //フォルダを開く
