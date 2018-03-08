@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Text;
+using OpenCvSharp;
 
 namespace QRCameraApp
 {
@@ -26,21 +22,25 @@ namespace QRCameraApp
 
         private void Cam(object sender, EventArgs e)
         {
-            Clipboard.Clear();
-            Clipboard.SetText("カメラ");
 
-            SendKeys.Send("^{ESC}");
-            Application.DoEvents();
+            Mat src = new Mat(@"C:\Users\sekib\Pictures\Saved Pictures\1.png", ImreadModes.GrayScale);   // OpenCvSharp 3.x
+            //Mat src = new Mat("lenna.png", LoadMode.GrayScale); // OpenCvSharp 2.4.x
+            Mat dst = new Mat();
 
-            SendKeys.Send("^v");
-            Application.DoEvents();
+            Cv2.Canny(src, dst, 50, 200);
+            
+            //using (new Window("src image", src))
+            //using (new Window("dst image", dst))
+            {
+                Cv2.WaitKey();
+            }
 
-            SendKeys.Send("{ENTER}");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Cam(sender,e);
         }
+
     }
 }
