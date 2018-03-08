@@ -13,22 +13,20 @@ namespace QRCameraApp
     public partial class Form1 : Form
     {
         private BarcodeReader barcodeReader = new BarcodeReader();
-        private Bitmap img = new Bitmap(@"C:\Users\sekib\Pictures\Saved Pictures\qr.jpg");
+        //private Bitmap img = new Bitmap(@"C:\Users\sekib\Pictures\Saved Pictures\qr.jpg");
 
-        int WIDTH = 640;
-        int HEIGHT = 480;
+        int WIDTH = 320;
+        int HEIGHT = 180;
         Mat frame;
         VideoCapture capture;
         Bitmap bmp;
         Graphics graphic;
-
 
         public Form1()
         {
             InitializeComponent();
             barcodeReader.AutoRotate = true;
             barcodeReader.TryInverted = true;
-
 
             //カメラ画像取得用VideoCapture
             capture = new VideoCapture(0);
@@ -44,12 +42,10 @@ namespace QRCameraApp
 
            //表示用のBitmap作成
             bmp = new Bitmap(frame.Cols, frame.Rows, (int)frame.Step(), System.Drawing.Imaging.PixelFormat.Format24bppRgb, frame.Data);
- 
 
             //PictureBoxを出力サイズに合わせる
-            pictureBox1.Width = frame.Cols;
-            pictureBox1.Height = frame.Rows;
-
+            pictureBox1.Width = this.Width;// frame.Cols;
+            pictureBox1.Height = (int)(this.Height*0.8); // frame.Rows;
             //描画用のGraphics作成
             graphic = pictureBox1.CreateGraphics();
 
