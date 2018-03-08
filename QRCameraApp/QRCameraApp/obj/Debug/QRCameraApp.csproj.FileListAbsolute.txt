@@ -1,0 +1,10 @@
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\QRCameraApp.exe.config
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\QRCameraApp.exe
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\QRCameraApp.pdb
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\obj\Debug\QRCameraApp.Form1.resources
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\obj\Debug\QRCameraApp.Properties.Resources.resources
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\obj\Debug\QRCameraApp.csproj.GenerateResource.Cache
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\obj\Debug\QRCameraApp.csproj.CoreCompileInputs.cache
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\obj\Debug\QRCameraApp.exe
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\obj\Debug\QRCameraApp.pdb
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\obj\Debug\QRCameraApp.csprojResolveAssemblyReference.cache
