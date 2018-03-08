@@ -24,3 +24,9 @@ C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debu
 C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\OpenCvSharp.Extensions.xml
 C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\OpenCvSharp.UserInterface.pdb
 C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\OpenCvSharp.UserInterface.xml
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\zxing.dll
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\zxing.presentation.dll
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\zxing.pdb
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\zxing.xml
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\zxing.presentation.pdb
+C:\Users\sekib\Documents\UnderCreation\QRCamera\QRCameraApp\QRCameraApp\bin\Debug\zxing.presentation.xml
